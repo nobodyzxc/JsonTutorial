@@ -81,7 +81,7 @@ static int lept_parse_number(lept_context* c, lept_value* v) {
     if(*p != '\0') return LEPT_PARSE_ROOT_NOT_SINGULAR;
     v->n = strtod(c->json, NULL);
     if(errno == ERANGE && fabs(v->n) == HUGE_VAL){ 
-        errno = 0;
+        errno = 0;       /*+- overflow not underflow*/
         return LEPT_PARSE_NUMBER_TOO_BIG;
     }
     c->json = p;
